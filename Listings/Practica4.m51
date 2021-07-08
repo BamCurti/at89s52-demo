@@ -1,0 +1,115 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    07/08/2021  09:15:11  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Practica4.obj TO .\Objects\Practica4 PRINT (.\Listings\Practica4.m51) RAMSIZE (256
+>> )
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\Practica4.obj (PRACTICA4)
+
+
+LINK MAP OF MODULE:  .\Objects\Practica4 (PRACTICA4)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     00B4H     ABSOLUTE     
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\Practica4 (PRACTICA4)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        PRACTICA4
+  C:00A2H         SYMBOL        DELAY
+  C:0050H         SYMBOL        LCD_INICIALIZATION
+  C:0094H         SYMBOL        LCD_JUMP
+  C:007FH         SYMBOL        LCD_WRITE
+  C:0086H         SYMBOL        LCD_WRITE_ACC
+  D:0090H         SYMBOL        P1
+  D:00A0H         SYMBOL        P2
+  C:00AAH         SYMBOL        POOLING
+  C:0040H         SYMBOL        START
+  C:0047H         SYMBOL        TEST
+  B:0088H.5       SYMBOL        TF0
+  D:008CH         SYMBOL        TH0
+  D:008AH         SYMBOL        TL0
+  D:0089H         SYMBOL        TMOD
+  B:0088H.4       SYMBOL        TR0
+  C:0000H         LINE#         19
+  C:0040H         LINE#         26
+  C:0043H         LINE#         28
+  C:0045H         LINE#         29
+  C:0047H         LINE#         32
+  C:0048H         LINE#         33
+  C:004AH         LINE#         34
+  C:004BH         LINE#         35
+  C:004EH         LINE#         37
+  C:0050H         LINE#         44
+  C:0052H         LINE#         45
+  C:0055H         LINE#         46
+  C:0057H         LINE#         47
+  C:0059H         LINE#         48
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  07/08/2021  09:15:11  PAGE 2
+
+
+  C:005BH         LINE#         49
+  C:005DH         LINE#         51
+  C:0060H         LINE#         52
+  C:0062H         LINE#         53
+  C:0064H         LINE#         54
+  C:0066H         LINE#         55
+  C:0068H         LINE#         57
+  C:006BH         LINE#         58
+  C:006DH         LINE#         59
+  C:006FH         LINE#         60
+  C:0071H         LINE#         61
+  C:0073H         LINE#         63
+  C:0076H         LINE#         64
+  C:0078H         LINE#         65
+  C:007AH         LINE#         66
+  C:007CH         LINE#         67
+  C:007EH         LINE#         69
+  C:007FH         LINE#         73
+  C:0082H         LINE#         74
+  C:0084H         LINE#         75
+  C:0086H         LINE#         78
+  C:0088H         LINE#         79
+  C:008AH         LINE#         80
+  C:008CH         LINE#         81
+  C:008EH         LINE#         82
+  C:0090H         LINE#         83
+  C:0092H         LINE#         84
+  C:0093H         LINE#         86
+  C:0094H         LINE#         89
+  C:0096H         LINE#         90
+  C:0099H         LINE#         91
+  C:009BH         LINE#         92
+  C:009DH         LINE#         93
+  C:009FH         LINE#         94
+  C:00A1H         LINE#         95
+  C:00A2H         LINE#         98
+  C:00A5H         LINE#         99
+  C:00A8H         LINE#         100
+  C:00AAH         LINE#         103
+  C:00ADH         LINE#         104
+  C:00AFH         LINE#         106
+  C:00B1H         LINE#         108
+  C:00B2H         LINE#         110
+  -------         ENDMOD        PRACTICA4
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0076H BYTE ( 5%) *
+******************************************************************************
+
+Program Size: data=8.0 xdata=0 code=180
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)
