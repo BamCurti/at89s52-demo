@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/08/2021 09:15:11 PAGE     1
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 11:22:08 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -16,112 +16,160 @@ LOC  OBJ            LINE     SOURCE
                        6     ;P1:3 - P1.0: D - A DE 74C922
                        7     
                        8     ;P3.1: PUERTO SERIAL
-                       9     ;P3.2: ASCII MODE
-                      10     ;P3.3: LECTURA DE MATRIZ
+                       9     ;P3.2: LECTURA DE MATRIZ
+                      10     ;P3.3: ASCII MODE
                       11     
                       12     ;TIMER 1 - DELAY 100 us
                       13     
                       14     ;R7: N VECES QUE SE REPITE TIMER 100 uS
-                      15     ;R6: CANTIDAD DE CARACTERES 
+                      15     ;R6: CANTIDAD DE CARACTERES impresos (LCD)
                       16     ;R5: CARACTER PRUEBA
                       17     
-0000                  18     ORG 0H
-0000 803E             19             SJMP START
-                      20             
-0040                  21     ORG 40H
-0040                  22             START:
-                      23     ;CONF TIMER
-                      24     ;                               T1                                      T0      
-                      25     ;                       GATE !T/C M1 M0         GATE !T/C M1 M0 
-0040 758911           26             MOV TMOD, #00010001b
+  0060                18     DIR_DATOS equ 60H
+  0050                19     DIR_CONVERTION equ 50H
+                      20     
+0000                  21     ORG 0H
+0000 803E             22             SJMP START
+                      23             
+                      24     ;EXTERNAL 0
+0003                  25     ORG 0003H
+0003 32               26     RETI
                       27             
-0043 1150             28             ACALL LCD_INICIALIZATION
-0045 7D41             29             MOV R5, #'A'
-                      30             
-0047                  31     TEST:
-0047 ED               32             MOV A, R5
-0048 117F             33             ACALL LCD_WRITE
-004A 0D               34             INC R5
-004B BD5AF9           35             CJNE R5, #'Z', TEST
-                      36             
-004E 80FE             37             SJMP $
-                      38             
-                      39             
-0050                  40     LCD_INICIALIZATION:
-                      41             ;38H - 39 us, RS = 0
-                      42             ;0FH - 39 us, RS = 0
-                      43             ;01H - 1.53 ms, RS = 0
-0050 C294             44             CLR P1.4; !COMANDO / DATO
-0052 75A038           45             MOV P2, #38H
-0055 7F01             46             MOV R7, #01h
-0057 D295             47             SETB P1.5 ; E 
-0059 11A2             48             ACALL DELAY
-005B C295             49             CLR P1.5; E
-                      50             
-005D 75A038           51             MOV P2, #38H
-0060 7F01             52             MOV R7, #01h
-0062 D295             53             SETB P1.5 ; E 
-0064 11A2             54             ACALL DELAY
-0066 C295             55             CLR P1.5; E
-                      56             
-0068 75A00F           57             MOV P2, #0FH
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/08/2021 09:15:11 PAGE     2
+                      28     ;TIMER 0
+000B                  29     ORG 000BH
+000B 32               30     RETI
+                      31     
+                      32     ;EXTERNAL 1
+0013                  33     ORG 0013H
+0013 32               34     RETI
+                      35     
+                      36     ;TIMER 1
+001B                  37     ORG 001BH
+001B 32               38     RETI
+                      39     
+                      40     ;SERIAL PORT
+0023                  41     ORG 0023H
+0023 32               42     RETI
+                      43             
+                      44     
+0040                  45     ORG 40H
+0040                  46     START:
+                      47     ;CONF TIMER
+                      48     ;                               T1                                      T0      
+                      49     ;                       GATE !T/C M1 M0         GATE !T/C M1 M0 
+0040 758911           50             MOV TMOD, #00010001b
+                      51             
+                      52     ;CONF INTERRUPCIONES
+                      53     ;               EA - ET2 ES ET1 EX1 ET0 EX0
+0043 75A895           54     MOV IE, #10010101b
+                      55     
+                      56     ;CONF SERIAL
+                      57             
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 11:22:08 PAGE     2
 
-006B 7F01             58             MOV R7, #01h
-006D D295             59             SETB P1.5 ; E 
-006F 11A2             60             ACALL DELAY
-0071 C295             61             CLR P1.5; E
-                      62             
-0073 75A00F           63             MOV P2, #0FH
-0076 7F10             64             MOV R7, #16D
-0078 D295             65             SETB P1.5 ; E 
-007A 11A2             66             ACALL DELAY
-007C C295             67             CLR P1.5; E     
-                      68     
-007E 22               69             RET
+0046 115A             58             ACALL LCD_INICIALIZATION
+                      59             
+0048                  60     TEST:
+                      61             ;PUEDEN UTILIZAR ESTE ESPACIO PARA PRUEBAS, SIEMPRE Y CUANDO DEJEN EL CODIGO COMO D
+                             EBERÍA IR.
+0048 7448             62             MOV A, #'H'
+004A 1194             63             acall LCD_WRITE
+                      64             
+004C 7430             65             MOV A, #'0'
+004E 1194             66             acall LCD_WRITE
+                      67             
+0050 744C             68             MOV A, #'L'
+0052 1194             69             acall LCD_WRITE
                       70             
-007F                  71     LCD_WRITE:
-                      72     ;PARA ESCRIBIR EN LCD, PASAR AL ACC EL CARACTER A ESCRIBIR
-007F BE1004           73             CJNE R6, #16D, LCD_WRITE_ACC
-0082 1194             74             ACALL LCD_JUMP
-0084 7E00             75             MOV R6, #0H
-                      76             
-0086                  77     LCD_WRITE_ACC:
-0086 D294             78             SETB P1.4; !COMANDO / DATO
-0088 F5A0             79             MOV P2, A; MOVER AL BUS DE LA PANTALLA EL DATO
-008A D295             80             SETB P1.5; E
-008C 7F01             81             MOV R7, #1
-008E 11A2             82             ACALL DELAY
-0090 C295             83             CLR P1.5
-0092 0E               84             INC R6
-                      85     
-0093 22               86             RET
-                      87             
-0094                  88     LCD_JUMP:
-0094 C294             89             CLR P1.4
-0096 75A0C0           90             MOV P2, #0C0H
-0099 D295             91             SETB P1.5
-009B 7F01             92             MOV R7, #1D
-009D 11A2             93             ACALL DELAY
-009F C295             94             CLR P1.5
-00A1 22               95             RET
-                      96             
-00A2                  97     DELAY:
-00A2 758CFF           98             MOV TH0, #HIGH(-100)
-00A5 758A9C           99             MOV TL0, #LOW(-100)
-00A8 D28C            100             SETB TR0
+0054 7441             71             MOV A, #'A'
+0056 1194             72             acall LCD_WRITE
+                      73             
+                      74             
+                      75             
+0058 80FE             76             SJMP $
+                      77             
+                      78             
+005A                  79     LCD_INICIALIZATION:
+                      80             ;38H - 39 us, RS = 0
+                      81             ;0FH - 39 us, RS = 0
+                      82             ;01H - 1.53 ms, RS = 0
+005A 75A001           83             MOV P2, #01H
+005D 7F10             84             MOV R7, #16D
+005F D295             85             SETB P1.5 ; E 
+0061 11B7             86             ACALL DELAY
+0063 C295             87             CLR P1.5; E     
+                      88     
+0065 C294             89             CLR P1.4; !COMANDO / DATO
+0067 75A038           90             MOV P2, #38H
+006A 7F01             91             MOV R7, #01h; cantidad de veces que se repite t_0
+006C D295             92             SETB P1.5 ; E 
+006E 11B7             93             ACALL DELAY
+0070 C295             94             CLR P1.5; E
+                      95             
+0072 75A038           96             MOV P2, #38H
+0075 7F01             97             MOV R7, #01h
+0077 D295             98             SETB P1.5 ; E 
+0079 11B7             99             ACALL DELAY
+007B C295            100             CLR P1.5; E
                      101             
-00AA                 102     POOLING:
-00AA 308DFD          103             JNB TF0, POOLING
-00AD C28D            104             CLR TF0
-                     105             
-00AF DFF1            106             DJNZ R7, DELAY
-                     107             
-00B1 22              108             RET
-                     109             
-00B2 80FE            110             SJMP $
-                     111             END
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/08/2021 09:15:11 PAGE     3
+007D 75A00F          102             MOV P2, #0FH
+0080 7F01            103             MOV R7, #01h
+0082 D295            104             SETB P1.5 ; E 
+0084 11B7            105             ACALL DELAY
+0086 C295            106             CLR P1.5; E
+                     107     
+0088 75A080          108             MOV P2, #80H
+008B 7F01            109             MOV R7, #01h
+008D D295            110             SETB P1.5 ; E 
+008F 11B7            111             ACALL DELAY
+0091 C295            112             CLR P1.5; E
+                     113     
+0093 22              114             RET
+                     115             
+0094                 116     LCD_WRITE:
+                     117     ;PARA ESCRIBIR EN LCD, PASAR AL ACC EL CARACTER A ESCRIBIR
+0094 BE1004          118             CJNE R6, #16D, LCD_WRITE_ACC
+0097 11A9            119             ACALL LCD_JUMP
+0099 7E00            120             MOV R6, #0H
+                     121             
+009B                 122     LCD_WRITE_ACC:
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 11:22:08 PAGE     3
+
+009B D294            123             SETB P1.4; !COMANDO / DATO
+009D F5A0            124             MOV P2, A; MOVER AL BUS DE LA PANTALLA EL DATO
+009F D295            125             SETB P1.5; E
+00A1 7F01            126             MOV R7, #1
+00A3 11B7            127             ACALL DELAY
+00A5 C295            128             CLR P1.5
+00A7 0E              129             INC R6
+                     130     
+00A8 22              131             RET
+                     132             
+00A9                 133     LCD_JUMP:
+00A9 C294            134             CLR P1.4
+00AB 75A0C0          135             MOV P2, #0C0H
+00AE D295            136             SETB P1.5
+00B0 7F01            137             MOV R7, #1D
+00B2 11B7            138             ACALL DELAY
+00B4 C295            139             CLR P1.5
+00B6 22              140             RET
+                     141             
+00B7                 142     DELAY:
+00B7 758CFF          143             MOV TH0, #HIGH(-100)
+00BA 758A9C          144             MOV TL0, #LOW(-100)
+00BD D28C            145             SETB TR0
+                     146             
+00BF                 147     POOLING:
+00BF 308DFD          148             JNB TF0, POOLING
+00C2 C28D            149             CLR TF0
+                     150             
+00C4 DFF1            151             DJNZ R7, DELAY
+                     152             
+00C6 22              153             RET
+                     154             
+00C7 80FE            155             SJMP $
+                     156             END
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 11:22:08 PAGE     4
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -129,16 +177,19 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY. . . . . . .  C ADDR   00A2H   A   
-LCD_INICIALIZATION  C ADDR   0050H   A   
-LCD_JUMP . . . . .  C ADDR   0094H   A   
-LCD_WRITE. . . . .  C ADDR   007FH   A   
-LCD_WRITE_ACC. . .  C ADDR   0086H   A   
+DELAY. . . . . . .  C ADDR   00B7H   A   
+DIR_CONVERTION . .  N NUMB   0050H   A   
+DIR_DATOS. . . . .  N NUMB   0060H   A   
+IE . . . . . . . .  D ADDR   00A8H   A   
+LCD_INICIALIZATION  C ADDR   005AH   A   
+LCD_JUMP . . . . .  C ADDR   00A9H   A   
+LCD_WRITE. . . . .  C ADDR   0094H   A   
+LCD_WRITE_ACC. . .  C ADDR   009BH   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
-POOLING. . . . . .  C ADDR   00AAH   A   
+POOLING. . . . . .  C ADDR   00BFH   A   
 START. . . . . . .  C ADDR   0040H   A   
-TEST . . . . . . .  C ADDR   0047H   A   
+TEST . . . . . . .  C ADDR   0048H   A   
 TF0. . . . . . . .  B ADDR   0088H.5 A   
 TH0. . . . . . . .  D ADDR   008CH   A   
 TL0. . . . . . . .  D ADDR   008AH   A   

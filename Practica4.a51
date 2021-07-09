@@ -59,6 +59,19 @@ MOV IE, #10010101b
 	
 TEST:
 	;PUEDEN UTILIZAR ESTE ESPACIO PARA PRUEBAS, SIEMPRE Y CUANDO DEJEN EL CODIGO COMO DEBERÍA IR.
+	MOV A, #'H'
+	acall LCD_WRITE
+	
+	MOV A, #'0'
+	acall LCD_WRITE
+	
+	MOV A, #'L'
+	acall LCD_WRITE
+	
+	MOV A, #'A'
+	acall LCD_WRITE
+	
+	
 	
 	SJMP $
 	
@@ -67,30 +80,36 @@ LCD_INICIALIZATION:
 	;38H - 39 us, RS = 0
 	;0FH - 39 us, RS = 0
 	;01H - 1.53 ms, RS = 0
-	CLR P1.4; !COMANDO / DATO
-	MOV P2, #38H
-	MOV R7, #01h
-	SETB P1.5 ; E 
-	ACALL DELAY
-	CLR P1.5; E
-	
-	MOV P2, #38H
-	MOV R7, #01h
-	SETB P1.5 ; E 
-	ACALL DELAY
-	CLR P1.5; E
-	
-	MOV P2, #0FH
-	MOV R7, #01h
-	SETB P1.5 ; E 
-	ACALL DELAY
-	CLR P1.5; E
-	
-	MOV P2, #0FH
+	MOV P2, #01H
 	MOV R7, #16D
 	SETB P1.5 ; E 
 	ACALL DELAY
 	CLR P1.5; E	
+
+	CLR P1.4; !COMANDO / DATO
+	MOV P2, #38H
+	MOV R7, #01h; cantidad de veces que se repite t_0
+	SETB P1.5 ; E 
+	ACALL DELAY
+	CLR P1.5; E
+	
+	MOV P2, #38H
+	MOV R7, #01h
+	SETB P1.5 ; E 
+	ACALL DELAY
+	CLR P1.5; E
+	
+	MOV P2, #0FH
+	MOV R7, #01h
+	SETB P1.5 ; E 
+	ACALL DELAY
+	CLR P1.5; E
+
+	MOV P2, #80H
+	MOV R7, #01h
+	SETB P1.5 ; E 
+	ACALL DELAY
+	CLR P1.5; E
 
 	RET
 	
