@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 11:22:08 PAGE     1
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 12:07:38 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -65,7 +65,7 @@ LOC  OBJ            LINE     SOURCE
                       55     
                       56     ;CONF SERIAL
                       57             
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 11:22:08 PAGE     2
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 12:07:38 PAGE     2
 
 0046 115A             58             ACALL LCD_INICIALIZATION
                       59             
@@ -93,13 +93,13 @@ LOC  OBJ            LINE     SOURCE
                       80             ;38H - 39 us, RS = 0
                       81             ;0FH - 39 us, RS = 0
                       82             ;01H - 1.53 ms, RS = 0
-005A 75A001           83             MOV P2, #01H
-005D 7F10             84             MOV R7, #16D
-005F D295             85             SETB P1.5 ; E 
-0061 11B7             86             ACALL DELAY
-0063 C295             87             CLR P1.5; E     
-                      88     
-0065 C294             89             CLR P1.4; !COMANDO / DATO
+005A C294             83             CLR P1.4; !COMANDO / DATO
+005C 75A001           84             MOV P2, #01H
+005F 7F10             85             MOV R7, #16D
+0061 D295             86             SETB P1.5 ; E 
+0063 11B7             87             ACALL DELAY
+0065 C295             88             CLR P1.5; E     
+                      89     
 0067 75A038           90             MOV P2, #38H
 006A 7F01             91             MOV R7, #01h; cantidad de veces que se repite t_0
 006C D295             92             SETB P1.5 ; E 
@@ -133,7 +133,7 @@ LOC  OBJ            LINE     SOURCE
 0099 7E00            120             MOV R6, #0H
                      121             
 009B                 122     LCD_WRITE_ACC:
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 11:22:08 PAGE     3
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 12:07:38 PAGE     3
 
 009B D294            123             SETB P1.4; !COMANDO / DATO
 009D F5A0            124             MOV P2, A; MOVER AL BUS DE LA PANTALLA EL DATO
@@ -169,7 +169,7 @@ LOC  OBJ            LINE     SOURCE
                      154             
 00C7 80FE            155             SJMP $
                      156             END
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 11:22:08 PAGE     4
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/09/2021 12:07:38 PAGE     4
 
 SYMBOL TABLE LISTING
 ------ ----- -------

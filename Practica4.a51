@@ -80,13 +80,13 @@ LCD_INICIALIZATION:
 	;38H - 39 us, RS = 0
 	;0FH - 39 us, RS = 0
 	;01H - 1.53 ms, RS = 0
+	CLR P1.4; !COMANDO / DATO
 	MOV P2, #01H
 	MOV R7, #16D
 	SETB P1.5 ; E 
 	ACALL DELAY
 	CLR P1.5; E	
 
-	CLR P1.4; !COMANDO / DATO
 	MOV P2, #38H
 	MOV R7, #01h; cantidad de veces que se repite t_0
 	SETB P1.5 ; E 
