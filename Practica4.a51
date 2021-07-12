@@ -1,7 +1,7 @@
 ;PRACTICA 4
 ;P2: BUS DE DATOS DE LCD
-;P1.4: RS - LCD
-;P1.5: E - LCD
+;P3.6: RS - LCD
+;P3.7: E - LCD
 
 ;P1:3 - P1.0: D - A DE 74C922
 
