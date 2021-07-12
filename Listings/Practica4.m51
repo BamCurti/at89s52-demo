@@ -1,8 +1,8 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    07/12/2021  11:35:05  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    07/12/2021  18:09:30  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
-D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Practica4.obj TO .\Objects\Practica4 PRINT (.\Listings\Practica4.m51) RAMSIZE (256
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Practica4.obj TO .\Objects\Practica4 PRINT (.\Listings\Practica4.m51) RAMSIZE (256
 >> )
 
 
@@ -30,38 +30,47 @@ SYMBOL TABLE OF MODULE:  .\Objects\Practica4 (PRACTICA4)
   ----------------------------------
 
   -------         MODULE        PRACTICA4
-  C:00B4H         SYMBOL        DELAY
+  C:00B8H         SYMBOL        DELAY
   N:0200H         SYMBOL        DIR_CONVERTION
   N:0060H         SYMBOL        DIR_DATOS
   D:0083H         SYMBOL        DPH
   D:0082H         SYMBOL        DPL
   B:00B0H.7       SYMBOL        E
+  C:00D8H         SYMBOL        ENV
+  C:00D6H         SYMBOL        ENVIAR
+  C:00C8H         SYMBOL        ENVIAR_DATO
   D:00A8H         SYMBOL        IE
   B:0088H.1       SYMBOL        IE0
+  B:0088H.3       SYMBOL        IE1
   B:0088H.0       SYMBOL        IT0
   B:0088H.2       SYMBOL        IT1
-  C:0055H         SYMBOL        LCD_INICIALIZATION
-  C:00A6H         SYMBOL        LCD_JUMP
-  C:0091H         SYMBOL        LCD_WRITE
-  C:0098H         SYMBOL        LCD_WRITE_ACC
-  C:0050H         SYMBOL        MAIN
+  C:0059H         SYMBOL        LCD_INICIALIZATION
+  C:00AAH         SYMBOL        LCD_JUMP
+  C:0095H         SYMBOL        LCD_WRITE
+  C:009CH         SYMBOL        LCD_WRITE_ACC
+  C:0054H         SYMBOL        MAIN
   D:0090H         SYMBOL        P1
   D:00A0H         SYMBOL        P2
   D:00B0H         SYMBOL        P3
-  C:00BCH         SYMBOL        POOLING
-  C:00C4H         SYMBOL        READ_MATRICIAL
+  C:00C0H         SYMBOL        POOLING
+  C:00DDH         SYMBOL        READ_MATRICIAL
   B:00B0H.6       SYMBOL        RS
-  C:00D0H         SYMBOL        SAVE_DATA
+  C:00E9H         SYMBOL        SAVE_DATA
   D:0099H         SYMBOL        SBUF
+  D:0098H         SYMBOL        SCON
   C:0040H         SYMBOL        START
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  07/12/2021  18:09:30  PAGE 2
+
+
+  B:00B0H.5       SYMBOL        T1
   B:0088H.5       SYMBOL        TF0
   D:008CH         SYMBOL        TH0
+  D:008DH         SYMBOL        TH1
+  B:0098H.1       SYMBOL        TI
   D:008AH         SYMBOL        TL0
   D:0089H         SYMBOL        TMOD
   B:0088H.4       SYMBOL        TR0
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  07/12/2021  11:35:05  PAGE 2
-
-
+  B:0088H.6       SYMBOL        TR1
   C:0000H         LINE#         24
   C:0003H         LINE#         28
   C:0005H         LINE#         30
@@ -69,85 +78,99 @@ SYMBOL TABLE OF MODULE:  .\Objects\Practica4 (PRACTICA4)
   C:0009H         LINE#         36
   C:000BH         LINE#         38
   C:0013H         LINE#         46
-  C:0023H         LINE#         54
+  C:0015H         LINE#         47
+  C:0017H         LINE#         48
+  C:0023H         LINE#         56
   C:0040H         LINE#         62
-  C:0043H         LINE#         66
-  C:0046H         LINE#         67
-  C:0048H         LINE#         68
-  C:004AH         LINE#         69
-  C:004CH         LINE#         70
-  C:004EH         LINE#         75
-  C:0050H         LINE#         80
-  C:0053H         LINE#         82
-  C:0055H         LINE#         89
-  C:0057H         LINE#         90
+  C:0043H         LINE#         65
+  C:0046H         LINE#         69
+  C:0049H         LINE#         70
+  C:004BH         LINE#         71
+  C:004DH         LINE#         72
+  C:004FH         LINE#         75
+  C:0052H         LINE#         77
+  C:0054H         LINE#         82
+  C:0057H         LINE#         84
   C:0059H         LINE#         91
-  C:005CH         LINE#         92
-  C:005EH         LINE#         93
+  C:005BH         LINE#         92
+  C:005DH         LINE#         93
   C:0060H         LINE#         94
   C:0062H         LINE#         95
-  C:0064H         LINE#         97
-  C:0067H         LINE#         98
-  C:0069H         LINE#         99
+  C:0064H         LINE#         96
+  C:0066H         LINE#         97
+  C:0068H         LINE#         99
   C:006BH         LINE#         100
   C:006DH         LINE#         101
-  C:006FH         LINE#         103
-  C:0072H         LINE#         104
-  C:0074H         LINE#         105
+  C:006FH         LINE#         102
+  C:0071H         LINE#         103
+  C:0073H         LINE#         105
   C:0076H         LINE#         106
   C:0078H         LINE#         107
-  C:007AH         LINE#         109
-  C:007DH         LINE#         110
-  C:007FH         LINE#         111
+  C:007AH         LINE#         108
+  C:007CH         LINE#         109
+  C:007EH         LINE#         111
   C:0081H         LINE#         112
   C:0083H         LINE#         113
-  C:0085H         LINE#         115
-  C:0088H         LINE#         116
-  C:008AH         LINE#         117
+  C:0085H         LINE#         114
+  C:0087H         LINE#         115
+  C:0089H         LINE#         117
   C:008CH         LINE#         118
   C:008EH         LINE#         119
-  C:0090H         LINE#         121
-  C:0091H         LINE#         125
-  C:0094H         LINE#         126
-  C:0096H         LINE#         127
-  C:0098H         LINE#         130
-  C:009AH         LINE#         131
+  C:0090H         LINE#         120
+  C:0092H         LINE#         121
+  C:0094H         LINE#         123
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  07/12/2021  18:09:30  PAGE 3
+
+
+  C:0095H         LINE#         127
+  C:0098H         LINE#         128
+  C:009AH         LINE#         129
   C:009CH         LINE#         132
   C:009EH         LINE#         133
   C:00A0H         LINE#         134
   C:00A2H         LINE#         135
   C:00A4H         LINE#         136
-  C:00A5H         LINE#         138
-  C:00A6H         LINE#         141
-BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  07/12/2021  11:35:05  PAGE 3
-
-
-  C:00A8H         LINE#         142
-  C:00ABH         LINE#         143
-  C:00ADH         LINE#         144
+  C:00A6H         LINE#         137
+  C:00A8H         LINE#         138
+  C:00A9H         LINE#         140
+  C:00AAH         LINE#         143
+  C:00ACH         LINE#         144
   C:00AFH         LINE#         145
   C:00B1H         LINE#         146
   C:00B3H         LINE#         147
-  C:00B4H         LINE#         150
-  C:00B7H         LINE#         151
-  C:00BAH         LINE#         152
-  C:00BCH         LINE#         155
-  C:00BFH         LINE#         156
-  C:00C1H         LINE#         158
-  C:00C3H         LINE#         160
-  C:00C4H         LINE#         163
-  C:00C6H         LINE#         164
+  C:00B5H         LINE#         148
+  C:00B7H         LINE#         149
+  C:00B8H         LINE#         152
+  C:00BBH         LINE#         153
+  C:00BEH         LINE#         154
+  C:00C0H         LINE#         157
+  C:00C3H         LINE#         158
+  C:00C5H         LINE#         160
+  C:00C7H         LINE#         162
   C:00C8H         LINE#         165
-  C:00CBH         LINE#         166
+  C:00CAH         LINE#         166
+  C:00CCH         LINE#         167
   C:00CEH         LINE#         168
-  C:00CFH         LINE#         170
-  C:00D0H         LINE#         173
-  C:00D1H         LINE#         174
-  C:00D2H         LINE#         175
+  C:00D1H         LINE#         169
+  C:00D3H         LINE#         170
+  C:00D4H         LINE#         171
+  C:00D6H         LINE#         174
+  C:00D8H         LINE#         176
+  C:00D9H         LINE#         177
+  C:00DCH         LINE#         178
+  C:00DDH         LINE#         181
+  C:00DFH         LINE#         182
+  C:00E1H         LINE#         183
+  C:00E4H         LINE#         184
+  C:00E7H         LINE#         186
+  C:00E8H         LINE#         188
+  C:00E9H         LINE#         191
+  C:00EAH         LINE#         192
+  C:00EBH         LINE#         193
   -------         ENDMOD        PRACTICA4
 
 ******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00B0H BYTE ( 8%) *
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00CDH BYTE (10%) *
 ******************************************************************************
 
 Program Size: data=8.0 xdata=0 code=528
