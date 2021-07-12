@@ -16,7 +16,7 @@
 ;R5: CARACTER PRUEBA
 
 DIR_DATOS equ 60H
-DIR_CONVERTION equ 50H
+DIR_CONVERTION equ 0200H
 RS equ P3.6
 E equ P3.7
 
@@ -25,19 +25,29 @@ ORG 0H
 	
 ;EXTERNAL 0
 ORG 0003H
+	CLR IE0
+	;Leer dato
+	ACALL READ_MATRICIAL
+	
+	;Imprimir dato
+	ACALL LCD_WRITE	
+	
+	;Guardar dato
+	ACALL SAVE_DATA
+	
 RETI
 	
 ;TIMER 0
-ORG 000BH
-RETI
+;ORG 000BH
+;RETI
 
 ;EXTERNAL 1
 ORG 0013H
 RETI
 
 ;TIMER 1
-ORG 001BH
-RETI
+;ORG 001BH
+;RETI
 
 ;SERIAL PORT
 ORG 0023H
@@ -54,26 +64,16 @@ START:
 ;CONF INTERRUPCIONES
 ;		EA - ET2 ES ET1 EX1 ET0 EX0
 MOV IE, #10010101b
+setb it0
+MOV R0, #DIR_DATOS
 
 ;CONF SERIAL
-	
+
+
 	ACALL LCD_INICIALIZATION
 	
 TEST:
 	;PUEDEN UTILIZAR ESTE ESPACIO PARA PRUEBAS, SIEMPRE Y CUANDO DEJEN EL CODIGO COMO DEBERÍA IR.
-	MOV A, #'H'
-	acall LCD_WRITE
-	
-	MOV A, #'0'
-	acall LCD_WRITE
-	
-	MOV A, #'L'
-	acall LCD_WRITE
-	
-	MOV A, #'A'
-	acall LCD_WRITE
-	
-	
 	
 	SJMP $
 	
@@ -155,5 +155,39 @@ POOLING:
 	
 	RET
 	
-	SJMP $
+READ_MATRICIAL:
+	mov A,P1; leer dato
+	anl A,#0FH; limpiar 
+	MOV DPH, #HIGH(DIR_CONVERTION)
+	MOV DPL, #LOW(DIR_CONVERTION)
+	
+	MOVC A, @A+DPTR; Mover al acc la conversión
+	
+	RET
+	
+SAVE_DATA:
+	mov @R0, A
+	INC R0
+	RET
+
+	ORG DIR_CONVERTION
+	DB 'D'	;0
+	DB 'B'	;1
+	DB 'C'	;2
+	DB 'A'	;3
+	DB '0'	;4
+	DB '5'	;5
+	DB '8'	;6
+	DB '2'	;7
+	DB 'E'	;8
+	DB '6'	;9
+	DB '9'	;10
+	DB '3'	;11
+	DB 'F'	;12
+	DB '4'	;13
+	DB '7'	;14	
+	DB '1'	;15
+		
+		
+	
 	END
