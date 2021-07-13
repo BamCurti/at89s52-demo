@@ -1,4 +1,4 @@
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 17:43:35 PAGE     1
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     1
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
@@ -37,13 +37,13 @@ LOC  OBJ            LINE     SOURCE
 0003                  27     ORG 0003H
 0003 C289             28             CLR IE0
                       29             ;Leer dato
-0005 11C2             30             ACALL READ_MATRICIAL
+0005 11DD             30             ACALL READ_MATRICIAL
                       31             
                       32             ;Imprimir dato
-0007 118F             33             ACALL LCD_WRITE 
+0007 1195             33             ACALL LCD_WRITE 
                       34             
                       35             ;Guardar dato
-0009 11CE             36             ACALL SAVE_DATA
+0009 11E9             36             ACALL SAVE_DATA
                       37             
 000B 32               38     RETI
                       39             
@@ -53,163 +53,182 @@ LOC  OBJ            LINE     SOURCE
                       43     
                       44     ;EXTERNAL 1
 0013                  45     ORG 0013H
-0013 32               46     RETI
-                      47     
-                      48     ;TIMER 1
-                      49     ;ORG 001BH
-                      50     ;RETI
-                      51     
-                      52     ;SERIAL PORT
-0023                  53     ORG 0023H
-0023 32               54     RETI
-                      55             
-                      56     
-0040                  57     ORG 40H
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 17:43:35 PAGE     2
+0013 C28B             46             CLR IE1
+0015 11D6             47             ACALL ENVIAR
+0017 32               48     RETI
+                      49     
+                      50     ;TIMER 1
+                      51     ;ORG 001BH
+                      52     ;RETI
+                      53     
+                      54     ;SERIAL PORT
+0023                  55     ORG 0023H
+0023 32               56     RETI
+                      57             
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     2
 
-0040                  58     START:
-                      59     ;CONF TIMER
-                      60     ;                               T1                                      T0      
-                      61     ;                       GATE !T/C M1 M0         GATE !T/C M1 M0 
-0040 758911           62             MOV TMOD, #00010001b
-                      63             
-                      64     ;CONF INTERRUPCIONES
-                      65     ;               EA - ET2 ES ET1 EX1 ET0 EX0
-0043 75A895           66     MOV IE, #10010101b
-0046 D288             67     setb IT0
-0048 D28A             68     SETB IT1
-004A 7860             69     MOV R0, #DIR_DATOS
-                      70     
-                      71     ;CONF SERIAL
-                      72     
+                      58     
+0040                  59     ORG 40H
+0040                  60     START:
+                      61             ;CONF TIMER
+0040 758DFD           62             MOV TH1, #-3
+                      63             ;                               T1                                      T0      
+                      64             ;                       GATE !T/C M1 M0         GATE !T/C M1 M0 
+0043 758921           65             MOV TMOD, #00100001b 
+                      66             
+                      67             ;CONF INTERRUPCIONES
+                      68             ;               EA - ET2 ES ET1 EX1 ET0 EX0
+0046 75A895           69             MOV IE, #10010101b
+0049 D288             70             setb IT0
+004B D28A             71             SETB IT1
+004D 7860             72             MOV R0, #DIR_DATOS
                       73     
-004C 1153             74             ACALL LCD_INICIALIZATION
-                      75             
-004E                  76     MAIN:
-                      77             ;PUEDEN UTILIZAR ESTE ESPACIO PARA PRUEBAS, SIEMPRE Y CUANDO DEJEN EL CODIGO COMO D
-                             EBERÍA IR.
+                      74             ;CONF SERIAL
+004F 759840           75             MOV SCON, #01000000B    ;UART 8 BITS BANDERAS LIMPIAS
+                      76     
+0052 1159             77             ACALL LCD_INICIALIZATION
                       78             
-004E 20B5FD           79             JB P3.5, MAIN
-                      80             
-0051 80FB             81             SJMP MAIN
-                      82             
+0054                  79     MAIN:
+                      80             ;PUEDEN UTILIZAR ESTE ESPACIO PARA PRUEBAS, SIEMPRE Y CUANDO DEJEN EL CODIGO COMO D
+                             EBERÍA IR.
+                      81             
+0054 20B5FD           82             JB P3.5, MAIN
                       83             
-0053                  84     LCD_INICIALIZATION:
-                      85             ;38H - 39 us, RS = 0
-                      86             ;0FH - 39 us, RS = 0
-                      87             ;01H - 1.53 ms, RS = 0
-0053 C2B6             88             CLR RS; !COMANDO / DATO
-0055 C2B7             89             CLR E
-0057 75A001           90             MOV P2, #01H
-005A 7F11             91             MOV R7, #17D
-005C D2B7             92             SETB E ; E 
-005E 11B2             93             ACALL DELAY
-0060 C2B7             94             CLR E; E        
-                      95     
-0062 75A038           96             MOV P2, #38H
-0065 7F01             97             MOV R7, #01h; cantidad de veces que se repite t_0
-0067 D2B7             98             SETB E; E 
-0069 11B2             99             ACALL DELAY
-006B C2B7            100             CLR E; E
-                     101             
-006D 75A038          102             MOV P2, #38H
-0070 7F01            103             MOV R7, #01h
-0072 D2B7            104             SETB E ; E 
-0074 11B2            105             ACALL DELAY
-0076 C2B7            106             CLR E; E
-                     107             
-0078 75A00F          108             MOV P2, #0FH
-007B 7F01            109             MOV R7, #01h
-007D D2B7            110             SETB E; E 
-007F 11B2            111             ACALL DELAY
-0081 C2B7            112             CLR E; E
-                     113     
-0083 75A080          114             MOV P2, #80H
-0086 7F01            115             MOV R7, #01h
-0088 D2B7            116             SETB E; E 
-008A 11B2            117             ACALL DELAY
-008C C2B7            118             CLR E; E
-                     119     
-008E 22              120             RET
-                     121             
-008F                 122     LCD_WRITE:
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 17:43:35 PAGE     3
+0057 80FB             84             SJMP MAIN
+                      85             
+                      86             
+0059                  87     LCD_INICIALIZATION:
+                      88             ;38H - 39 us, RS = 0
+                      89             ;0FH - 39 us, RS = 0
+                      90             ;01H - 1.53 ms, RS = 0
+0059 C2B6             91             CLR RS; !COMANDO / DATO
+005B C2B7             92             CLR E
+005D 75A001           93             MOV P2, #01H
+0060 7F11             94             MOV R7, #17D
+0062 D2B7             95             SETB E ; E 
+0064 11B8             96             ACALL DELAY
+0066 C2B7             97             CLR E; E        
+                      98     
+0068 75A038           99             MOV P2, #38H
+006B 7F01            100             MOV R7, #01h; cantidad de veces que se repite t_0
+006D D2B7            101             SETB E; E 
+006F 11B8            102             ACALL DELAY
+0071 C2B7            103             CLR E; E
+                     104             
+0073 75A038          105             MOV P2, #38H
+0076 7F01            106             MOV R7, #01h
+0078 D2B7            107             SETB E ; E 
+007A 11B8            108             ACALL DELAY
+007C C2B7            109             CLR E; E
+                     110             
+007E 75A00F          111             MOV P2, #0FH
+0081 7F01            112             MOV R7, #01h
+0083 D2B7            113             SETB E; E 
+0085 11B8            114             ACALL DELAY
+0087 C2B7            115             CLR E; E
+                     116     
+0089 75A080          117             MOV P2, #80H
+008C 7F01            118             MOV R7, #01h
+008E D2B7            119             SETB E; E 
+0090 11B8            120             ACALL DELAY
+0092 C2B7            121             CLR E; E
+                     122     
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     3
 
-                     123     ;PARA ESCRIBIR EN LCD, PASAR AL ACC EL CARACTER A ESCRIBIR
-008F BE1004          124             CJNE R6, #16D, LCD_WRITE_ACC
-0092 11A4            125             ACALL LCD_JUMP
-0094 7E00            126             MOV R6, #0H
-                     127             
-0096                 128     LCD_WRITE_ACC:
-0096 D2B6            129             SETB RS; !COMANDO / DATO
-0098 F5A0            130             MOV P2, A; MOVER AL BUS DE LA PANTALLA EL DATO
-009A D2B7            131             SETB E; E
-009C 7F01            132             MOV R7, #1
-009E 11B2            133             ACALL DELAY
-00A0 C2B7            134             CLR E
-00A2 0E              135             INC R6
-                     136     
-00A3 22              137             RET
-                     138             
-00A4                 139     LCD_JUMP:
-00A4 C2B6            140             CLR RS
-00A6 75A0C0          141             MOV P2, #0C0H
-00A9 D2B7            142             SETB E
-00AB 7F01            143             MOV R7, #1D
-00AD 11B2            144             ACALL DELAY
-00AF C2B7            145             CLR E
-00B1 22              146             RET
-                     147             
-00B2                 148     DELAY:
-00B2 758CFF          149             MOV TH0, #HIGH(-100)
-00B5 758A9C          150             MOV TL0, #LOW(-100)
-00B8 D28C            151             SETB TR0
-                     152             
-00BA                 153     POOLING:
-00BA 308DFD          154             JNB TF0, POOLING
-00BD C28D            155             CLR TF0
-                     156             
-00BF DFF1            157             DJNZ R7, DELAY
-                     158             
-00C1 22              159             RET
-                     160             
-00C2                 161     READ_MATRICIAL:
-00C2 E590            162             mov A,P1; leer dato
-00C4 540F            163             anl A,#0FH; limpiar 
-00C6 758302          164             MOV DPH, #HIGH(DIR_CONVERTION)
-00C9 758200          165             MOV DPL, #LOW(DIR_CONVERTION)
-                     166             
-00CC 93              167             MOVC A, @A+DPTR; Mover al acc la conversión
-                     168             
-00CD 22              169             RET
-                     170             
-00CE                 171     SAVE_DATA:
-00CE F6              172             mov @R0, A
-00CF 08              173             INC R0
-00D0 22              174             RET
-                     175     
-0200                 176             ORG DIR_CONVERTION
-0200 44              177             DB 'D'  ;0
-0201 42              178             DB 'B'  ;1
-0202 43              179             DB 'C'  ;2
-0203 41              180             DB 'A'  ;3
-0204 30              181             DB '0'  ;4
-0205 35              182             DB '5'  ;5
-0206 38              183             DB '8'  ;6
-0207 32              184             DB '2'  ;7
-0208 45              185             DB 'E'  ;8
-0209 36              186             DB '6'  ;9
-020A 39              187             DB '9'  ;10
-020B 33              188             DB '3'  ;11
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 17:43:35 PAGE     4
+0094 22              123             RET
+                     124             
+0095                 125     LCD_WRITE:
+                     126     ;PARA ESCRIBIR EN LCD, PASAR AL ACC EL CARACTER A ESCRIBIR
+0095 BE1004          127             CJNE R6, #16D, LCD_WRITE_ACC
+0098 11AA            128             ACALL LCD_JUMP
+009A 7E00            129             MOV R6, #0H
+                     130             
+009C                 131     LCD_WRITE_ACC:
+009C D2B6            132             SETB RS; !COMANDO / DATO
+009E F5A0            133             MOV P2, A; MOVER AL BUS DE LA PANTALLA EL DATO
+00A0 D2B7            134             SETB E; E
+00A2 7F01            135             MOV R7, #1
+00A4 11B8            136             ACALL DELAY
+00A6 C2B7            137             CLR E
+00A8 0E              138             INC R6
+                     139     
+00A9 22              140             RET
+                     141             
+00AA                 142     LCD_JUMP:
+00AA C2B6            143             CLR RS
+00AC 75A0C0          144             MOV P2, #0C0H
+00AF D2B7            145             SETB E
+00B1 7F01            146             MOV R7, #1D
+00B3 11B8            147             ACALL DELAY
+00B5 C2B7            148             CLR E
+00B7 22              149             RET
+                     150             
+00B8                 151     DELAY:
+00B8 758CFF          152             MOV TH0, #HIGH(-100)
+00BB 758A9C          153             MOV TL0, #LOW(-100)
+00BE D28C            154             SETB TR0
+                     155             
+00C0                 156     POOLING:
+00C0 308DFD          157             JNB TF0, POOLING
+00C3 C28D            158             CLR TF0
+                     159             
+00C5 DFF1            160             DJNZ R7, DELAY
+                     161             
+00C7 22              162             RET
+                     163             
+00C8                 164     ENVIAR_DATO: 
+00C8 D28E            165             SETB TR1 
+00CA D2B5            166             SETB T1
+00CC 8799            167             MOV SBUF, @R1           
+00CE 3099FD          168             JNB TI, $ ;SI NO TERMINA DE TRANSMITIR BRINCA A SI MISMO
+00D1 C299            169             CLR TI
+00D3 09              170             INC R1  ;AUMENTAMOS EL NUMERO DE DATOS ENVIADOS
+00D4 8002            171             SJMP ENV        
+                     172     
+00D6                 173     ENVIAR:         ;R1 DIRECCION DATO A ENVIAR, R0: DIRECCION MAXIMA, R4: DATOS ENVIADOS
+00D6 7960            174             MOV R1, #DIR_DATOS      ;DIR DE DATO A ENVIAR
+00D8                 175     ENV:    
+00D8 E9              176             MOV A, R1                       ;DIR DE DATO A ENVIAR
+00D9 B500EC          177             CJNE A, 0, ENVIAR_DATO   
+00DC 22              178             RET
+                     179             
+00DD                 180     READ_MATRICIAL:
+00DD E590            181             mov A,P1; leer dato
+00DF 540F            182             anl A,#0FH; limpiar 
+00E1 758302          183             MOV DPH, #HIGH(DIR_CONVERTION)
+00E4 758200          184             MOV DPL, #LOW(DIR_CONVERTION)
+                     185             
+00E7 93              186             MOVC A, @A+DPTR; Mover al acc la conversión
+                     187             
+00E8 22              188             RET
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     4
 
-020C 46              189             DB 'F'  ;12
-020D 34              190             DB '4'  ;13
-020E 37              191             DB '7'  ;14     
-020F 31              192             DB '1'  ;15
-                     193             
-                     194             END
-A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 17:43:35 PAGE     5
+                     189             
+00E9                 190     SAVE_DATA:
+00E9 F6              191             mov @R0, A
+00EA 08              192             INC R0
+00EB 22              193             RET
+                     194     
+0200                 195             ORG DIR_CONVERTION
+0200 44              196             DB 'D'  ;0
+0201 42              197             DB 'B'  ;1
+0202 43              198             DB 'C'  ;2
+0203 41              199             DB 'A'  ;3
+0204 30              200             DB '0'  ;4
+0205 35              201             DB '5'  ;5
+0206 38              202             DB '8'  ;6
+0207 32              203             DB '2'  ;7
+0208 45              204             DB 'E'  ;8
+0209 36              205             DB '6'  ;9
+020A 39              206             DB '9'  ;10
+020B 33              207             DB '3'  ;11
+020C 46              208             DB 'F'  ;12
+020D 34              209             DB '4'  ;13
+020E 37              210             DB '7'  ;14     
+020F 31              211             DB '1'  ;15
+                     212             
+                     213             END
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     5
 
 SYMBOL TABLE LISTING
 ------ ----- -------
@@ -217,34 +236,44 @@ SYMBOL TABLE LISTING
 
 N A M E             T Y P E  V A L U E   ATTRIBUTES
 
-DELAY. . . . . . .  C ADDR   00B2H   A   
+DELAY. . . . . . .  C ADDR   00B8H   A   
 DIR_CONVERTION . .  N NUMB   0200H   A   
 DIR_DATOS. . . . .  N NUMB   0060H   A   
 DPH. . . . . . . .  D ADDR   0083H   A   
 DPL. . . . . . . .  D ADDR   0082H   A   
 E. . . . . . . . .  B ADDR   00B0H.7 A   
+ENV. . . . . . . .  C ADDR   00D8H   A   
+ENVIAR . . . . . .  C ADDR   00D6H   A   
+ENVIAR_DATO. . . .  C ADDR   00C8H   A   
 IE . . . . . . . .  D ADDR   00A8H   A   
 IE0. . . . . . . .  B ADDR   0088H.1 A   
+IE1. . . . . . . .  B ADDR   0088H.3 A   
 IT0. . . . . . . .  B ADDR   0088H.0 A   
 IT1. . . . . . . .  B ADDR   0088H.2 A   
-LCD_INICIALIZATION  C ADDR   0053H   A   
-LCD_JUMP . . . . .  C ADDR   00A4H   A   
-LCD_WRITE. . . . .  C ADDR   008FH   A   
-LCD_WRITE_ACC. . .  C ADDR   0096H   A   
-MAIN . . . . . . .  C ADDR   004EH   A   
+LCD_INICIALIZATION  C ADDR   0059H   A   
+LCD_JUMP . . . . .  C ADDR   00AAH   A   
+LCD_WRITE. . . . .  C ADDR   0095H   A   
+LCD_WRITE_ACC. . .  C ADDR   009CH   A   
+MAIN . . . . . . .  C ADDR   0054H   A   
 P1 . . . . . . . .  D ADDR   0090H   A   
 P2 . . . . . . . .  D ADDR   00A0H   A   
 P3 . . . . . . . .  D ADDR   00B0H   A   
-POOLING. . . . . .  C ADDR   00BAH   A   
-READ_MATRICIAL . .  C ADDR   00C2H   A   
+POOLING. . . . . .  C ADDR   00C0H   A   
+READ_MATRICIAL . .  C ADDR   00DDH   A   
 RS . . . . . . . .  B ADDR   00B0H.6 A   
-SAVE_DATA. . . . .  C ADDR   00CEH   A   
+SAVE_DATA. . . . .  C ADDR   00E9H   A   
+SBUF . . . . . . .  D ADDR   0099H   A   
+SCON . . . . . . .  D ADDR   0098H   A   
 START. . . . . . .  C ADDR   0040H   A   
+T1 . . . . . . . .  B ADDR   00B0H.5 A   
 TF0. . . . . . . .  B ADDR   0088H.5 A   
 TH0. . . . . . . .  D ADDR   008CH   A   
+TH1. . . . . . . .  D ADDR   008DH   A   
+TI . . . . . . . .  B ADDR   0098H.1 A   
 TL0. . . . . . . .  D ADDR   008AH   A   
 TMOD . . . . . . .  D ADDR   0089H   A   
 TR0. . . . . . . .  B ADDR   0088H.4 A   
+TR1. . . . . . . .  B ADDR   0088H.6 A   
 
 
 REGISTER BANK(S) USED: 0 
