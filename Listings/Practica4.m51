@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    07/13/2021  08:19:48  PAGE 1
+=======
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    07/12/2021  18:09:30  PAGE 1
+>>>>>>> a02089de135387e88e51b2e15294e37fa2cca4a7
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
-D:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Practica4.obj TO .\Objects\Practica4 PRINT (.\Listings\Practica4.m51) RAMSIZE (256
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\Practica4.obj TO .\Objects\Practica4 PRINT (.\Listings\Practica4.m51) RAMSIZE (256
 >> )
 
 
@@ -59,7 +63,11 @@ SYMBOL TABLE OF MODULE:  .\Objects\Practica4 (PRACTICA4)
   D:0099H         SYMBOL        SBUF
   D:0098H         SYMBOL        SCON
   C:0040H         SYMBOL        START
+<<<<<<< HEAD
 BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  07/13/2021  08:19:48  PAGE 2
+=======
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  07/12/2021  18:09:30  PAGE 2
+>>>>>>> a02089de135387e88e51b2e15294e37fa2cca4a7
 
 
   B:00B0H.5       SYMBOL        T1
@@ -119,7 +127,11 @@ SYMBOL TABLE OF MODULE:  .\Objects\Practica4 (PRACTICA4)
   C:0090H         LINE#         120
   C:0092H         LINE#         121
   C:0094H         LINE#         123
+<<<<<<< HEAD
 BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  07/13/2021  08:19:48  PAGE 3
+=======
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  07/12/2021  18:09:30  PAGE 3
+>>>>>>> a02089de135387e88e51b2e15294e37fa2cca4a7
 
 
   C:0095H         LINE#         127

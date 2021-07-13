@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     1
+=======
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 18:09:29 PAGE     1
+>>>>>>> a02089de135387e88e51b2e15294e37fa2cca4a7
 
 
 MACRO ASSEMBLER A51 V8.2.7.0
 OBJECT MODULE PLACED IN .\Objects\Practica4.obj
-ASSEMBLER INVOKED BY: D:\Keil_v5\C51\BIN\A51.EXE Practica4.a51 SET(SMALL) DEBUG PRINT(.\Listings\Practica4.lst) OBJECT(.
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Practica4.a51 SET(SMALL) DEBUG PRINT(.\Listings\Practica4.lst) OBJECT(.
                       \Objects\Practica4.obj) EP
 
 LOC  OBJ            LINE     SOURCE
@@ -65,7 +69,11 @@ LOC  OBJ            LINE     SOURCE
 0023                  55     ORG 0023H
 0023 32               56     RETI
                       57             
+<<<<<<< HEAD
 A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     2
+=======
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 18:09:29 PAGE     2
+>>>>>>> a02089de135387e88e51b2e15294e37fa2cca4a7
 
                       58     
 0040                  59     ORG 40H
@@ -133,7 +141,11 @@ LOC  OBJ            LINE     SOURCE
 0090 11B8            120             ACALL DELAY
 0092 C2B7            121             CLR E; E
                      122     
+<<<<<<< HEAD
 A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     3
+=======
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 18:09:29 PAGE     3
+>>>>>>> a02089de135387e88e51b2e15294e37fa2cca4a7
 
 0094 22              123             RET
                      124             
@@ -201,7 +213,11 @@ LOC  OBJ            LINE     SOURCE
 00E7 93              186             MOVC A, @A+DPTR; Mover al acc la conversión
                      187             
 00E8 22              188             RET
+<<<<<<< HEAD
 A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     4
+=======
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 18:09:29 PAGE     4
+>>>>>>> a02089de135387e88e51b2e15294e37fa2cca4a7
 
                      189             
 00E9                 190     SAVE_DATA:
@@ -228,7 +244,11 @@ LOC  OBJ            LINE     SOURCE
 020F 31              211             DB '1'  ;15
                      212             
                      213             END
+<<<<<<< HEAD
 A51 MACRO ASSEMBLER  PRACTICA4                                                            07/13/2021 08:19:47 PAGE     5
+=======
+A51 MACRO ASSEMBLER  PRACTICA4                                                            07/12/2021 18:09:29 PAGE     5
+>>>>>>> a02089de135387e88e51b2e15294e37fa2cca4a7
 
 SYMBOL TABLE LISTING
 ------ ----- -------
